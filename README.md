@@ -5,6 +5,20 @@ Coq code collection.
 Content
 -------
 
++ tsinghua-coq-summer-school
+
+Code for exercises of _Tsinghua Coq Summer School_ by Yves Bertot and Pierre Castéran
+
+See more details at: [https://www.labri.fr/perso/casteran/CoqArt/Tsinghua/index.html][1].
+
++ coq-art
+
+Code for _Interactive Theorem Proving and Program Development Coq'Art: The Calculus of Inductive Constructions_ by Yves Bertot and Pierre Castéran
+
++ software-foundations
+
+Code for _Software Foundations_ by Benjamin C. Pierce
+
 License
 -------
 
