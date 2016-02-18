@@ -16,10 +16,10 @@ Inductive sorted : list Z -> Prop :=
   | sorted_nil       :
     sorted nil
   | sorted_singleton :
-    forall a: Z, sorted (a :: nil)
+    forall a: Z, sorted (a::nil)
   | sorted_all       :
     forall (a b: Z) (l: list Z),
-      (a <= b) -> sorted (b :: l) -> sorted (a :: b :: l).
+      (a <= b) -> sorted (b::l) -> sorted (a::b::l).
 
 End Examples.
 
