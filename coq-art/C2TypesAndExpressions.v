@@ -32,19 +32,23 @@ End Examples.
 Section Exercises.
 
 (* Exercise 2.2 Simple expressions. *)
+
 Check (fun a b c : Z => (b*b-4*a*c) % Z).
 
 (* Exercise 2.3 Simple expressions. *)
+
 Check (fun (f g : nat -> nat) (n : nat) => g (f n)).
 
 (* Exercise 2.5 Simple expressions. *)
+
 Definition sum_five_integers :=
   fun a b c d e : Z => (a + b + c + d + e) % Z.
 
-(* Exercise 2.6 Simple expressions.
-  Those local variables that are used in a global definition
-  are added as abstractions around this global definition.
-  But, error may occurred. *)
+(* Exercise 2.6 Simple expressions. *)
+
+(** Those local variables that are used in a global definition
+  are added as abstractions around this global definition. **)
+
 Section SumFiveIntegers.
 Variable a b c d e : Z.
 Definition _sum_five_integers := (a + b + c + d + e) % Z.
@@ -53,6 +57,7 @@ End SumFiveIntegers.
 Definition sum_five_integers' := _sum_five_integers.
 
 (* Exercise 2.7 Polynomials. *)
+
 Definition fn := fun x : Z => (2*x*x+3*x+3) % Z.
 
 Eval compute in (fn 2).

@@ -36,10 +36,11 @@ Print l1.
 
 Theorem delta : (P -> P -> Q) -> P -> Q.
 Proof.
-(*   intros h1 h2.
-  apply h1.
-  apply h2.
-  apply h2. *)
+  (* detailed proof:
+    intros h1 h2.
+    apply h1.
+    apply h2.
+    apply h2. *)
   exact (fun (h1 : P -> P -> Q)(h2 : P) => h1 h2 h2).
 Qed.
 Print delta.
@@ -149,7 +150,10 @@ Theorem cut_example : Q.
 Proof.
   cut (P -> R).
   intros h5.
-  apply h3; [apply h5 | apply h4; apply h5].
+  apply h3;
+    [ apply h5
+    | apply h4; apply h5
+    ].
   intros h6; apply h2; apply h1; apply h6.
 Qed.
 Print cut_example.
@@ -246,11 +250,11 @@ Print weak_peirce.
 
 (* Exercise 3.4 *)
 
-(* Typing rules used in minimum propositional logic is: Prod, Lam, App* and Var.
+(** Typing rules used in minimum propositional logic is: Prod, Lam, App* and Var.
   for a formula q:
   + if q is a variable, it can be solved by assumption tactic.
   + if q is an abstraction, it can be simplified by intro tactic.
-  + if q is an application, it can be solved by apply tactic. *)
+  + if q is an application, it can be solved by apply tactic. **)
 
 (* Exercise 3.5 *)
 
@@ -279,8 +283,8 @@ Print cut_example'.
 
 Section AutoExample.
 
-(* Pattern: according to law of transfer, it's easy to construct a theorem/lemma
-  need to be proved at least arbitrary n steps. *)
+(** Pattern: according to law of transfer, it's easy to construct a theorem/lemma
+  need to be proved at least arbitrary n steps. **)
 
 Variables P0 P1 P2 P3 P4 P5 : Prop.
 Lemma auto_example :

@@ -153,8 +153,7 @@ Definition my_expo (x n : nat) : nat :=
 
 (* The Ackermann function can't be expressed as primitive recursive function. *)
 Definition ackermann (n : nat) : nat -> nat :=
-  iterate
-    (nat -> nat)
+  iterate (nat -> nat)
     (fun (f : nat -> nat) (p : nat) => iterate nat f (S p) 1)
     n S.
 
@@ -208,7 +207,7 @@ Check fun a b : nat => a = b.
 
 (* Exercise 4.2 Polymorphic functions and implicit arguments. *)
 
-(* answer: nat. *)
+(** The implicit type: nat. **)
 
 (* Exercise 4.3 Construct terms inhabits types. *)
 

@@ -55,9 +55,9 @@ Proof.
 Qed.
 
 Theorem imp_dist_all :
-  forall (A : Type) (P Q : A -> Prop),
-    (forall x : A, P x -> Q x) ->
-      (forall y : A, P y) ->
+  forall (A : Type) (P Q : A -> Prop), (
+    forall x : A, P x -> Q x) -> (
+      forall y : A, P y) ->
         forall z : A, Q z.
 Proof.
   intros TA P Q h1 h2.
@@ -564,7 +564,7 @@ Print lem5.
 
 (* Exercise 5.4 Some bad inference rules. *)
 
-(* TODO *)
+(** TODO **)
 
 (* Exercise 5.5 Introducing equality and disjunction. *)
 
@@ -656,25 +656,31 @@ Definition implies_to_or :=
 
 Goal peirce <-> classic.
 Proof.
-  unfold peirce; unfold classic; unfold not; split.
+  unfold peirce; unfold classic; unfold not.
+
+  split.
 
   intros hypo_perice.
   intros P h2.
   apply (hypo_perice P False).
   intros h3; elim h2; assumption.
 
-  intros hypo_classic P Q h1.
+  intros hypo_classic.
+  intros P Q h1.
   apply hypo_classic; intros h2.
   apply h2.
   apply h1.
   intros h3.
-  apply hypo_classic; intros h4.
+  apply hypo_classic;
+  intros h4.
   apply h2; apply h3.
 Qed.
 
 Goal peirce <-> excluded_middle.
 Proof.
-  unfold peirce; unfold excluded_middle; split.
+  unfold peirce; unfold excluded_middle.
+
+  split.
 
   (* NOTE important skill !!!. *)
   intros hypo_perice P.
@@ -688,12 +694,15 @@ Proof.
   elim (hypo_em P);
     [ intros h2
     | intros h2; apply h1; intros h3; elim h2
-    ]; assumption.
+    ];
+    assumption.
 Qed.
 
 Goal peirce <-> de_morgan_not_and_not.
 Proof.
-  unfold peirce; unfold de_morgan_not_and_not; split.
+  unfold peirce; unfold de_morgan_not_and_not.
+
+  split.
   (* TODO *)
 Admitted.
 
@@ -704,23 +713,27 @@ Admitted.
 
 Goal classic <-> excluded_middle.
 Proof.
-  unfold classic; unfold excluded_middle; unfold not; split.
+  unfold classic; unfold excluded_middle; unfold not.
+
+  split.
 
   intros hypo_classic P.
   (* NOTE important skill !!!. *)
-  apply hypo_classic;
+  apply hypo_classic.
   intros h2; apply h2.
   right; intros h3.
   elim h2.
   left; assumption.
 
-  intros hypo_em P.
+  intros hypo_em P;
   elim (hypo_em P); intros h1 h2; [idtac | elim h2]; apply h1.
 Qed.
 
 Goal classic <-> de_morgan_not_and_not.
 Proof.
-  unfold classic; unfold de_morgan_not_and_not; split.
+  unfold classic; unfold de_morgan_not_and_not.
+
+  split.
 
   intros hypo_classic P Q.
   intros h1.
@@ -749,7 +762,9 @@ Admitted.
 
 Goal excluded_middle <-> implies_to_or.
 Proof.
-  unfold excluded_middle; unfold implies_to_or; split.
+  unfold excluded_middle; unfold implies_to_or.
+
+  split.
 
   unfold not.
   intros hypo_em P Q.
@@ -760,7 +775,11 @@ Proof.
     ].
 
   intros hypo_impl P.
-  elim (hypo_impl P P); intros; [right | left | idtac]; assumption.
+  elim (hypo_impl P P); intros;
+    [ right
+    | left
+    | idtac];
+    assumption.
 Qed.
 
 Goal de_morgan_not_and_not <-> implies_to_or.
@@ -770,9 +789,9 @@ Admitted.
 
 (* Exercise 5.8 *)
 
-(* The usage of:
+(** The usage of:
   + "repeat idtac" keep a goal as it was.
-  + "repeat fail" ? (* TODO *) *)
+  + "repeat fail" ? (* TODO *) **)
 
 (* Exercise 5.9 On the existential quantifier. *)
 
@@ -791,7 +810,14 @@ Theorem ex_or_r :
     exists x : A, P x \/ Q x).
 Proof.
   intros TA P Q.
-  intros [h1 | h2]; [elim h1 | elim h2]; intros; exists x; [left | right]; assumption.
+  intros [h1 | h2];
+    [ elim h1
+    | elim h2
+    ];
+    intros; exists x;
+    [ left
+    | right
+    ]; assumption.
 Qed.
 
 Theorem ex_universal_relation :
