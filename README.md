@@ -2,18 +2,20 @@
 
 WHAT I have done on the road to Coq language and certified programming.
 
-Content
--------
+Contents
+--------
 
 + tsinghua-coq-summer-school
 
-    Code for exercises of _Tsinghua Coq Summer School_ by Yves Bertot and Pierre Castéran
+    Code for exercises of _Tsinghua Coq Summer School_ by Yves Bertot and Pierre Castéran.
 
     See more details at: [https://www.labri.fr/perso/casteran/CoqArt/Tsinghua/index.html](https://www.labri.fr/perso/casteran/CoqArt/Tsinghua/index.html).
 
 + coq-art
 
-    Code for _Interactive Theorem Proving and Program Development Coq'Art: The Calculus of Inductive Constructions_ by Yves Bertot and Pierre Castéran
+    Code for _Interactive Theorem Proving and Program Development Coq'Art: The Calculus of Inductive Constructions_ by Yves Bertot and Pierre Castéran.
+
+    Coq'Art Home page: [https://www.labri.fr/perso/casteran/CoqArt/](https://www.labri.fr/perso/casteran/CoqArt/).
 
 + cpdt
 
@@ -23,7 +25,9 @@ Content
 
 + software-foundations
 
-    Code for _Software Foundations_ by Benjamin C. Pierce
+    Code for _Software Foundations_ by Benjamin C. Pierce.
+
+    Online version of _Software Foundations_: [https://www.cis.upenn.edu/~bcpierce/sf/current/index.html](https://www.cis.upenn.edu/~bcpierce/sf/current/index.html).
 
 License
 -------
