@@ -1035,14 +1035,14 @@ Lemma f1_f2_fix :
 Proof.
   induction t; simpl.
 
-  trivial.
+  + trivial.
 
-  do 2 rewrite H. (* "rewrite H; rewrite H." *)
-  rewrite <- (function_equal _ _ (fun x : bool => if x then z0 true else z0 false) z0);
-    [ idtac
-    | intros a; case a
-    ];
-    trivial.
+  + do 2 rewrite H. (* "rewrite H; rewrite H." *)
+    rewrite <- (function_equal _ _ (fun x : bool => if x then z0 true else z0 false) z0);
+      [ idtac
+      | intros a; case a
+      ];
+      trivial.
 Qed.
 
 End ZBTreeRepresentation.
@@ -1096,18 +1096,16 @@ Theorem sum_n_formula :
   forall n : nat, 2 * sum_n n = n * (n + 1).
 Proof.
   induction n.
-
-  simpl. reflexivity.
-
-  unfold sum_n; fold sum_n.
-  rewrite mult_plus_distr_l.
-  rewrite IHn.
-  simpl.
-  f_equal.
-  rewrite plus_n_O.
-  rewrite mult_succ_r.
-  rewrite mult_plus_distr_l.
-  (* TODO *)
+  + simpl. reflexivity.
+  + unfold sum_n; fold sum_n.
+    rewrite mult_plus_distr_l.
+    rewrite IHn.
+    simpl.
+    f_equal.
+    rewrite plus_n_O.
+    rewrite mult_succ_r.
+    rewrite mult_plus_distr_l.
+    (* TODO *)
 Admitted.
 
 (* Exercise 6.33 On the sum of the n first natural numbers. *)
@@ -1122,12 +1120,12 @@ Theorem n_le_sum_n :
   forall n : nat, n <= sum_n n.
 Proof.
   induction n.
-  simpl; trivial.
-  simpl.
-  apply le_n_S.
-  apply (Nat.le_trans n (n + n), (n + sum_n n)).
-  apply (le_plus_l n n).
-  apply (plus_le_compat n n n (sum_n n)); [reflexivity | assumption].
+  + simpl; trivial.
+  + simpl.
+    apply le_n_S.
+    apply (Nat.le_trans n (n + n), (n + sum_n n)).
+    apply (le_plus_l n n).
+    apply (plus_le_compat n n n (sum_n n)); [reflexivity | assumption].
 Qed.
 
 (* Exercise 6.34 A simple polymorphic function on lists. *)
@@ -1202,19 +1200,16 @@ Theorem diff_principle_arg_same_result :
   forall (A : Set) (n : nat) (l : list A), nth_option n l = nth_option' n l.
 Proof.
   simple induction n.
-
-    intros l.
+  + intros l.
     case l.
-      simpl. reflexivity.
-      simpl. trivial.
+    - simpl. reflexivity.
+    - simpl. trivial.
 
-    intros n'.
+  + intros n'.
     intros h1 l.
     simpl. case l.
-
-      simpl. reflexivity.
-
-      intros a l'.
+    - simpl. reflexivity.
+    - intros a l'.
       simpl.
       apply (h1 l').
 Qed.
@@ -1233,26 +1228,26 @@ Theorem nth_length :
   forall (A : Set) (n : nat) (l : list A), nth_option n l = None <-> length l <= n.
 Proof.
   simple induction n.
+  - destruct l.
+    + simpl. split.
+      * trivial.
+      * trivial.
+    + simpl. split.
+      * inversion 1. (* "intros h1. inversion h1." *)
+      * inversion 1. (* "intros h1. inversion h1." *)
+  - intros n' h1 l.
     destruct l.
-      simpl. split.
-        trivial.
-        trivial.
-      simpl. split.
-        inversion 1.
-        inversion 1.
-    intros n' h1 l.
-    destruct l.
-      simpl. split.
-        auto with arith.
-        trivial.
-      simpl (length (a::l)).
+    + simpl. split.
+      * auto with arith.
+      * trivial.
+    + simpl (length (a::l)).
       simpl (nth_option (S n') (a::l)).
       split.
         (* The key is that import both
           "nth_option n l = None <-> length l <= n"
           and "nth_option n l = None <-> length l <= n" into hypotheses. *)
-        case (h1 l). auto with arith.
-        case (h1 l). auto with arith.
+        * case (h1 l). auto with arith.
+        * case (h1 l). auto with arith.
 Qed.
 
 (* Exercise 6.41 Finding the first element satisfying a boolean predicate in a list. *)
@@ -1288,10 +1283,8 @@ Theorem combine_of_split :
     in combine la lb = l.
 Proof.
   simple induction l.
-
-    simpl; reflexivity.
-
-    intros a l'.
+  + simpl; reflexivity.
+  + intros a l'.
     simpl (split (a::l')).
     case (split l'). (* Important step !! *)
     case a. simpl.
@@ -1324,16 +1317,16 @@ Theorem normal_Z_inv :
   forall t, Z_to_normal (normal_to_Z t) = t.
 Proof.
   induction t.
-    simpl. reflexivity.
-    simpl. rewrite IHt1; rewrite IHt2. reflexivity.
+  - simpl. reflexivity.
+  - simpl. rewrite IHt1; rewrite IHt2. reflexivity.
 Qed.
 
 Theorem Z_normal_inv :
   forall t, normal_to_Z (Z_to_normal t) = t.
 Proof.
   induction t.
-    simpl. reflexivity.
-    simpl. rewrite IHt1; rewrite IHt2. reflexivity.
+  - simpl. reflexivity.
+  - simpl. rewrite IHt1; rewrite IHt2. reflexivity.
 Qed.
 
 (* Exercise 6.44 *)
