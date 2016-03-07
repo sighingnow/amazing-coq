@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 1: A Brief Overview *)
+(* Code for Coq'Art, Chapter 1: A Brief Overview *)
 
 Section ABriefOverview.
 

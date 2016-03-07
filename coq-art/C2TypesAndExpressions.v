@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 2: Types and Expressions. *)
+(* Code for Coq'Art, Chapter 2: Types and Expressions. *)
 
 Section TypesAndExpressions.
 

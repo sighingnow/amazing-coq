@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 4: Dependent Products or Pandora's Box. *)
+(* Code for Coq'Art, Chapter 4: Dependent Products or Pandora's Box. *)
 
 Section DependentProducts.
 

@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 6: Inductive Data Types. *)
+(* Code for Coq'Art, Chapter 6: Inductive Data Types. *)
 
 Section InductiveDataTypes.
 

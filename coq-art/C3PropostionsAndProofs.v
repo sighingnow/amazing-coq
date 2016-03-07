@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 3: Propositions and Proofs. *)
+(* Code for Coq'Art, Chapter 3: Propositions and Proofs. *)
 
 Section PropositionsAndProofs.
 

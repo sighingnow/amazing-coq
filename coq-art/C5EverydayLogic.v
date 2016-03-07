@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 5: Everyday Logic. *)
+(* Code for Coq'Art, Chapter 5: Everyday Logic. *)
 
 Section EverydayLogic.
 

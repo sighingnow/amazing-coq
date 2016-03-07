@@ -1,4 +1,4 @@
-(* Code for Coq Art, Chapter 7: Tactics and Automation. *)
+(* Code for Coq'Art, Chapter 7: Tactics and Automation. *)
 
 Section TacticsAndAutomation.
 
