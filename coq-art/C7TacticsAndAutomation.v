@@ -243,7 +243,14 @@ End Primes.
 
 (* Exercise 7.2 Rewriting with exceptions. *)
 
-(* TODO *)
+Open Scope Z_scope.
+
+Theorem z_positive_example :
+  forall x, Zpos (xO (xI x)) = 4 * (Zpos x) + 2.
+Proof.
+  simpl.
+  trivial.
+Qed.
 
 End Exercises.
 

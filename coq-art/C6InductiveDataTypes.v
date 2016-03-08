@@ -603,7 +603,7 @@ Proof.
   intros b1 b2.
   case b1, b2; simpl;
     [ idtac
-    | intros h1; elim h1
+    | intros h1; rewrite h1
     | idtac
     | idtac
     ]; trivial.
@@ -1100,13 +1100,16 @@ Proof.
   + unfold sum_n; fold sum_n.
     rewrite mult_plus_distr_l.
     rewrite IHn.
-    simpl.
-    f_equal.
-    rewrite plus_n_O.
-    rewrite mult_succ_r.
-    rewrite mult_plus_distr_l.
-    (* TODO *)
-Admitted.
+    assert(h1 : forall n, S n = n + 1).
+    - intros n'.
+      induction n'.
+      * simpl; reflexivity.
+      * simpl; rewrite IHn'; reflexivity.
+    - pattern (S n); rewrite h1.
+      repeat rewrite mult_plus_distr_l.
+      repeat rewrite mult_plus_distr_r.
+      omega.
+Qed.
 
 (* Exercise 6.33 On the sum of the n first natural numbers. *)
 
@@ -1244,10 +1247,19 @@ Proof.
       simpl (nth_option (S n') (a::l)).
       split.
         (* The key is that import both
-          "nth_option n l = None <-> length l <= n"
-          and "nth_option n l = None <-> length l <= n" into hypotheses. *)
-        * case (h1 l). auto with arith.
-        * case (h1 l). auto with arith.
+          "nth_option n l = None -> length l <= n"
+          and "length l <= n -> nth_option n l = None" into hypotheses, then, use
+          the tactic "generalize" to deconstruct this hypothesis. *)
+        * generalize (h1 l).
+          intros h2 h3.
+          apply le_n_S.
+          apply h2.
+          assumption.
+        * generalize (h1 l).
+          intros h2 h3.
+          apply h2.
+          apply le_S_n.
+          assumption.
 Qed.
 
 (* Exercise 6.41 Finding the first element satisfying a boolean predicate in a list. *)

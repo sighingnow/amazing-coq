@@ -40,11 +40,15 @@ Check (imp_trans_poly _ _ _ (le_S 0 1) (le_S 0 2)).
 
 Definition neutral_left (A : Set) (op : A -> A -> A) (e : A) :=
   forall x : A, op e x = x.
-Theorem neutral_left_one : neutral_left Z Zmult 1%Z.
+Theorem neutral_left_one :
+  neutral_left Z Zmult 1%Z.
 Proof.
-  intros value.
-  (* TODO: how to prove it ? *)
-Admitted.
+  intros v.
+  destruct v. (* "case v." and "elim v." are also can solve the proof. *)
+  + simpl; reflexivity.
+  + simpl; reflexivity.
+  + simpl; reflexivity.
+Qed.
 Print neutral_left_one.
 
 Theorem ls_SS :
@@ -66,23 +70,43 @@ Proof.
 Qed.
 Print imp_dist_all.
 
-(* TODO: How to prove these three lemmas ? *)
+Lemma zero_le_nat :
+  forall n : nat, O <= n.
+Proof.
+  induction n.
+  - apply le_n.
+  - apply le_S; apply IHn.
+Qed.
 
 Lemma le_trans :
   forall n m p : nat, n <= m -> m <= p -> n <= p.
 Proof.
   intros n m p h1 h2.
-Admitted.
+  induction h2. (* perform induction on the inductive predicate: "le". *)
+  + assumption.
+  + apply le_S.
+    assumption.
+Qed.
 
 Lemma mult_le_compat_l :
   forall n m p : nat, n <= m -> p * n <= p * m.
 Proof.
-Admitted.
+  induction p; simpl.
+  + trivial.
+  + intros h1.
+    apply plus_le_compat.
+    - assumption.
+    - apply IHp; assumption.
+Qed.
 
 Lemma mult_le_compat_r :
   forall n m p : nat, n <= m -> n * p <= m * p.
 Proof.
-Admitted.
+  intros n m p.
+  pattern (n * p); rewrite mult_comm.
+  pattern (m * p); rewrite mult_comm.
+  apply mult_le_compat_l.
+Qed.
 
 (* Use apply...at... or eapply... . *)
 
@@ -118,8 +142,6 @@ Qed.
 
 Lemma lt_8_9 : 8 < 9.
 Proof.
-  (* Here, "unfold lt" is not needed in Coq 8.5. *)
-  unfold lt.
   apply le_n.
 Qed.
 
@@ -131,8 +153,12 @@ Theorem unfold_example :
   forall x y : Z, x * x = y * y -> Zsquare_diff x y * Zsquare_diff (x + y) (x * y) = 0.
 Proof.
   intros x y h1.
-  unfold Zsquare_diff at 1.
-Admitted.
+  unfold Zsquare_diff at 1 2.
+  rewrite h1.
+  assert (h2 : y * y - y * y = 0).
+  + omega.
+  + rewrite h2; simpl; reflexivity.
+Qed.
 Print unfold_example.
 
 Open Scope nat_scope.
@@ -142,7 +168,7 @@ Theorem lt_S :
 Proof.
   intros n p h1.
   apply le_S.
-  trivial. (* TODO: "trivial" tatic ?*)
+  apply lt_le_S; assumption. (* or directly use the tactic "trivial". *)
 Qed.
 
 (* Logic Connectives. *)

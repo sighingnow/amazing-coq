@@ -4,6 +4,7 @@ Section Exercise_1_Work.
 
 Require Import List.
 Require Import Arith.
+Require Import Arith.Bool_nat.
 Require Import ZArith.
 
 (* Define a function that takes a tuple of numbers (a,b) and returns
@@ -53,13 +54,11 @@ Fixpoint nat_eq_bool_local (n m : nat) : bool :=
     | S a, S b => nat_eq_bool_local a b
   end.
 
-(* TODO: Why use standard `nat_eq_bool` from Coq.Arith.Bool_nat will failed ? *)
+(* NOTE that `nat_eq_bool` from Coq.Arith.Bool_nat and the `beq_nat` (or `Nat.eqb`)
+  have the different meaning as well as types ! *)
 Definition nat_contains (n : nat) (xs : list nat) : bool :=
   fold_right
-    (fun x res =>
-      if (nat_eq_bool_local n x)
-        then true
-        else res)
+    (fun x res => if beq_nat n x then true else res)
     false xs.
 
 Open Scope Z_scope.
