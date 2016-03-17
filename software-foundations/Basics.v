@@ -1,7 +1,5 @@
 (* Code for Software Foundations, Chapter 2: Basics: Functional Programming in Coq *)
 
-Module Basics.
-
 Require Import Arith.
 
 (* nandb *)
@@ -256,4 +254,3 @@ Definition ackermann (n m : nat) : nat :=
     end
   in ackermann_impl n m.
 
-End Basics.

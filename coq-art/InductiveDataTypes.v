@@ -1300,6 +1300,7 @@ Proof.
     simpl (split (a::l')).
     case (split l'). (* Important step !! *)
     case a. simpl.
+    intros u v l1 l2.
     destruct 1. reflexivity.
 Qed.
 

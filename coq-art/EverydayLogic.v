@@ -418,7 +418,7 @@ Proof.
  intros n  H H0.
  rewrite <- (le_lt_S_eq 2 n).
  simpl; auto.
- apply  plus_le_reg_l with (p := 6). 
+ apply  plus_le_reg_l with (p := 6).
  rewrite plus_comm in H; simpl; auto with arith.
  apply   plus_lt_reg_l with (p:= 3). auto with arith.
 Qed. *)

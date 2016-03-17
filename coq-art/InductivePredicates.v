@@ -109,7 +109,7 @@ Lemma last_fun_cons_not_none :
   forall (a : A) (l : list A), last_fun (a :: l) <> None.
 Proof.
   intros a l.
-  generalize a.
+  generalize dependent a.
   induction l.
     - discriminate.
     - simpl; intros a'; apply IHl.

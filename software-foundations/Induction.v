@@ -1,7 +1,5 @@
 (* Code for Software Foundations, Chapter 3: Induction: Proof by Induction *)
 
-Module Induction.
-
 Require Import Arith.
 Require Import Basics.
 
@@ -243,8 +241,75 @@ Qed.
 
 (* binary_commute *)
 
+Theorem bin_to_nat_pres_incr :
+  forall x : bin, bin_to_nat (incr x) = S (bin_to_nat x).
+Proof.
+  induction x.
+  + simpl. reflexivity.
+  + simpl. reflexivity.
+  + simpl.
+    rewrite IHx.
+    simpl.
+    rewrite Nat.add_succ_r.
+    reflexivity.
+Qed.
 
+(* binary_inverse *)
 
+Fixpoint nat_to_bin (n : nat) {struct n} : bin :=
+  match n with
+    | O => zero
+    | S n' => incr (nat_to_bin n')
+  end.
 
+Theorem double_convert :
+  forall n : nat, bin_to_nat (nat_to_bin n) = n.
+Proof.
+  induction n.
+  + simpl; trivial.
+  + simpl.
+    rewrite bin_to_nat_pres_incr.
+    rewrite IHn.
+    reflexivity.
+Qed.
 
-End Induction.
+Theorem double_convert_reverse :
+  forall b : bin, nat_to_bin (bin_to_nat b) = b.
+Proof.
+  induction b.
+Abort.
+(* The problem is that "twice zero = zero" ! It destory the induction principle. *)
+
+Definition normalize (b : bin) : bin :=
+  nat_to_bin (bin_to_nat b).
+
+Theorem normalize_identical :
+  forall b : bin, nat_to_bin (bin_to_nat b) = normalize b.
+Proof.
+  unfold normalize.
+  reflexivity.
+Qed.
+
+(* plus_comm_informal *)
+
+(* Theorem: Addition is commutative.
+  Proof: by induction on n,
+    base case: n = 0
+      0 + m = m, m + 0 = m, reflexivity.
+      then, forall k, k + m = m + k holds.
+    inductive step: n = 1 + k
+      1 + k + m = 1 + m + k = m + 1 + k.
+    Qed. *)
+
+(* beq_nat_refl_informal *)
+
+(* Theorem: true = beq_nat n n for any n.
+  Proof: by induction on n,
+    base case: n = 0
+      true = beq_nat 0 = 0 is trivial.
+      then, forall k,  true beq_nat k = k holds.
+    inductive step: n = S k
+      beq_nat (S k) (S k)
+      = beq_nat k k (* unfold the beq_nat. *)
+      = true.
+    Qed. *)
