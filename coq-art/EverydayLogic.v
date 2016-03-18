@@ -405,24 +405,22 @@ Qed.
 Theorem cond_rewrite_example :
   forall n : nat, 8 < n + 6 -> 3 + n < 6 -> n * n = n + n.
 Proof.
+  (* Where I was always felt stuck here ?
+    I thought when n equals to 2, the first premise "8 < n + 6" didn't hold,
+    so, there must be something wrong with this proof, but I couldn't get it.
+    I suddenly realised that when n equals to 2, this proposition is equivalent
+    with "False -> True -> True", it holds trivially! *)
   intros n h1 h2.
-  rewrite <- (le_lt_S_eq 2 n);
-    [ idtac
-    | apply plus_le_reg_l with (n := 2) (m := n) (p := 6)
-    | apply plus_lt_reg_l with (n := n) (m := 3) (p := 3)
-    ].
-  (* TODO I think this proof (as follows) is wrong !!!
-    From the last two subgoals we know that "n" must equal to "2",
-    but it contradicts with the hypotheses "h1" and "h2". *)
-(* Proof.
- intros n  H H0.
- rewrite <- (le_lt_S_eq 2 n).
- simpl; auto.
- apply  plus_le_reg_l with (p := 6).
- rewrite plus_comm in H; simpl; auto with arith.
- apply   plus_lt_reg_l with (p:= 3). auto with arith.
-Qed. *)
-Admitted.
+  rewrite <- (le_lt_S_eq 2 n).
+  + reflexivity.
+  + apply plus_le_reg_l with (p := 6).
+    rewrite plus_comm in h1.
+    simpl (6 + 2).
+    apply Nat.lt_le_incl.
+    assumption.
+  + apply plus_lt_reg_l with (p:= 3).
+    apply h2.
+Qed.
 
 End Examples.
 
