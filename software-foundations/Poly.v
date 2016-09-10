@@ -114,8 +114,10 @@ Qed.
 
 (* combine_checks *)
 
+(*
 Check @combine.
 Eval compute in combine (1::2::nil) (false::false::true::true::nil).
+*)
 
 (* split *)
 Fixpoint split {X Y : Type} (l : list (X * Y)) : (list X) * (list Y) :=
@@ -126,7 +128,7 @@ Fixpoint split {X Y : Type} (l : list (X * Y)) : (list X) * (list Y) :=
       in (a::u, b::v)
   end.
 
-Eval compute in split ((1, false)::(2, false)::nil).
+(* Eval compute in split ((1, false)::(2, false)::nil). *)
 
 (* hd_error_poly *)
 
@@ -269,42 +271,53 @@ Qed.
 
 Module Church.
 
-Definition nat :=
-  forall X : Type, (X -> X) -> X -> X.
+Definition church :=
+  forall X : Type, (X -> X) -> (X -> X).
 
 (* zero *)
-Definition zero : nat :=
+Definition zero : church :=
   fun (X : Type) (f : X -> X) (x : X) => x.
 
 (* one *)
-Definition one : nat :=
+Definition one : church :=
   fun (X : Type) (f : X -> X) (x : X) => f x.
 
 (* two *)
-Definition two : nat :=
+Definition two : church :=
   fun (X : Type) (f : X -> X) (x : X) => f (f x).
 
 (* three *)
-Definition three : nat :=
+Definition three : church :=
   fun (X : Type) (f : X -> X) (x : X) => f (f (f x)).
 
 (* succ n *)
-Definition succ (n : nat) : nat :=
+Definition succ (n : church) : church :=
   fun (X : Type) (f : X -> X) (x : X) => f ((n X f) x).
 
 (* n + m *)
-Definition plus (n m : nat) : nat :=
+Definition plus (n m : church) : church :=
   fun (X : Type) (f : X -> X) (x : X) => (m X f) ((n X f) x).
 
 (* n * m *)
-Definition mult (n m : nat) : nat :=
+Definition mult (n m : church) : church :=
   fun (X : Type) (f : X -> X) => m X (n X f).
 
 (* n ^ m *)
-Definition exp (n m : nat) : nat :=
+Definition exp (n m : church) : church :=
   fun (X : Type) => (m (X -> X)) (n X).
 
+(*
 Eval compute in exp two three.
 Eval compute in exp three two.
+*)
 
 End Church.
+
+Module ChurchWithFold.
+
+(* TODO : how to represent church numerals in Coq as the paper:
+  <Church numerals, Twice!>. *)
+
+End ChurchWithFold.
+
+

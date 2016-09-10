@@ -46,8 +46,6 @@ Inductive trans_closure (A : Type) (R : relation A) : A -> A -> Prop :=
   | t_trans :
     forall a b c : A, trans_closure A R a b -> trans_closure A R b c -> trans_closure A R a c.
 
-
-
 End Examples.
 
 (* Exercises. *)
@@ -84,7 +82,6 @@ Theorem last_fun_correct_some :
   forall (a : A) (l : list A), last a l <-> last_fun l = Some a.
 Proof.
   split.
-
   + intros h1.
     induction h1.
       - simpl; trivial.
@@ -92,7 +89,6 @@ Proof.
           [ inversion IHh1
           | trivial
           ].
-
   + elim l.
     - simpl. discriminate 1.
     - intros a0 l0.
